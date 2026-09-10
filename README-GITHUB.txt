@@ -1,20 +1,37 @@
-AXIVORA Smart Contact PWA
+AXIVORA Smart Contact PWA v1.1
 
-Deploy path expected by QR Studio:
-https://www.axivora.tech/contact/
+Upload ALL files to the root of your GitHub Pages repository:
+- index.html
+- styles.css
+- app.js
+- sw.js
+- manifest.webmanifest
+- axivora-logo.png
+- icon-192.png
+- icon-512.png
 
-If your AXIVORA website repository already uses Next.js + GitHub Pages:
-1. Create folder: public/contact/
-2. Copy ALL files from this package into public/contact/
-3. Commit and push.
-4. Let your normal GitHub Pages deployment finish.
-5. Test: https://www.axivora.tech/contact/
+GitHub Pages:
+Settings -> Pages -> Deploy from a branch -> main -> /(root)
 
-If you publish the generated static site directly instead:
-Create a /contact/ folder at the published site root and upload these files there.
+Production URL:
+https://contactaxivora.github.io/axivora-smart-contact/
 
 IMPORTANT:
-- Keep the final URL exactly /contact/ unless you also change smartContactUrl in QR Studio.
-- HTTPS is required for PWA installation and service workers. GitHub Pages/custom domain HTTPS is suitable.
-- PWA icon is always AXIVORA.
-- PWA manifest name/short_name are generated dynamically from the contact Name.
+The installed PWA name is AXIVORA Smart Contact and the icon is AXIVORA.
+The contact person's name is dynamic inside the page and browser title.
+A different installed app name for every contact cannot be reliably provided by static GitHub Pages because the Web App Manifest must be served as a real same-origin file. That feature requires a dynamic backend/serverless manifest endpoint.
+
+
+v1.2:
+- Empty contact fields are hidden from the UI.
+- Website button disappears if Website is empty.
+- Email button disappears if Email is empty.
+- Company/Job Title rows disappear if empty.
+- Empty detail blocks no longer leave blank space.
+
+
+v1.3:
+- Supports optional embedded profile image from the Smart Contact QR `i` parameter.
+- If image exists, it replaces the initial avatar.
+- If image is missing or invalid, the first letter of the contact name is shown automatically.
+- No backend or image hosting is required.
