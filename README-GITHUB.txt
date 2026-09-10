@@ -62,3 +62,12 @@ v2.1:
 - Smart Contact image `i` may now be a short GitHub repository path.
 - Website expands the short path into the full raw.githubusercontent.com URL at runtime.
 - Existing full HTTPS image URLs remain backward compatible.
+
+
+v2.2:
+- Uses a real HTTPS dynamic manifest served by AXIVORA Cloudflare Worker.
+- Installed app name becomes the contact person's name.
+- Installed app start_url preserves that exact contact's `d` payload.
+- Profile image becomes the installed app icon when available.
+- Without a profile image, Worker serves an SVG icon using the person's first initial.
+- Fixed Website detail mapping to use website data rather than email.

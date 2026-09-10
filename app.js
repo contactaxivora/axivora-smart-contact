@@ -15,6 +15,21 @@ const safeUrl=v=>{
 };
 const esc=v=>String(v||'').replace(/[\\;,]/g,m=>'\\'+m).replace(/\r?\n/g,'\\n');
 const data=decodeData();
+const configureDynamicManifest=(contact)=>{
+  try{
+    const d=new URLSearchParams(location.search).get('d')||'';
+    if(!contact||!contact.n||!d)return;
+    const ref=String(contact.i||'').trim();
+    const manifestUrl=new URL('https://axivora-smart-contact-publisher.contact-axivora.workers.dev/manifest');
+    manifestUrl.searchParams.set('n',contact.n);
+    manifestUrl.searchParams.set('d',d);
+    if(ref)manifestUrl.searchParams.set('i',ref);
+    const link=document.getElementById('dynamicManifest');
+    if(link)link.setAttribute('href',manifestUrl.toString());
+  }catch(e){console.warn('Dynamic manifest unavailable',e)}
+};
+configureDynamicManifest(data);
+
 if(!data||!data.n){
   $('card').hidden=true;$('error').hidden=false;
 }else{
