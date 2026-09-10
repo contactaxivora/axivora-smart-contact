@@ -41,3 +41,10 @@ v1.4:
 - Improved profile photo presentation for higher-quality embedded images.
 - Avatar display adjusted to 88px to avoid unnecessary upscaling.
 - Service-worker cache bumped so browsers fetch the new profile rendering.
+
+
+v1.5:
+- More robust embedded profile-image decoding.
+- Supports URL-safe Base64 profile payloads from QR Studio.
+- Falls back to the first letter of the name only if the embedded image is missing or invalid.
+- Service-worker cache bumped to force browsers to fetch the new code.

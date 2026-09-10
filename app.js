@@ -17,8 +17,10 @@ const profileImageFromQuery=()=>{
   try{
     let raw=new URLSearchParams(location.search).get('i')||'';
     if(!raw)return'';
-    raw=raw.replace(/-/g,'+').replace(/_/g,'/');
+    raw=decodeURIComponent(raw).replace(/-/g,'+').replace(/_/g,'/');
     while(raw.length%4)raw+='=';
+    // Validate Base64 before using it as an image source.
+    atob(raw);
     return `data:image/webp;base64,${raw}`;
   }catch{return''}
 };
