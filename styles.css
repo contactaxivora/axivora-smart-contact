@@ -67,3 +67,38 @@
     min-height:190px!important;
   }
 }
+
+
+/* v2.7 — inset profile photo so the full portrait stays inside the circular frame */
+.avatar{
+  width:200px!important;
+  height:200px!important;
+  padding:10px!important;
+  box-sizing:border-box!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  display:grid!important;
+  place-items:center!important;
+  background:#fff!important;
+}
+
+.avatar img{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:50%!important;
+  display:block!important;
+  transform:none!important;
+  margin:0!important;
+}
+
+@media(max-width:460px){
+  .avatar{
+    width:190px!important;
+    height:190px!important;
+    padding:9px!important;
+  }
+}
