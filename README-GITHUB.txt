@@ -71,3 +71,10 @@ v2.2:
 - Profile image becomes the installed app icon when available.
 - Without a profile image, Worker serves an SVG icon using the person's first initial.
 - Fixed Website detail mapping to use website data rather than email.
+
+
+v2.3:
+- Smart Contact supports a dedicated WhatsApp number (`q`) separate from call number (`p`).
+- If `q` is missing, WhatsApp falls back to the call number for backward compatibility.
+- WhatsApp detail appears separately only when it differs from the call number.
+- Saved VCF includes the separate WhatsApp telephone when provided.

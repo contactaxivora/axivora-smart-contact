@@ -58,7 +58,10 @@ if(!data||!data.n){
   }
 
   const detailRows=[
-    ['Phone',data.p],['Email',data.e],['Website',data.w]
+    ['Phone',data.p],
+    ...(data.q&&data.q!==data.p?[['WhatsApp',data.q]]:[]),
+    ['Email',data.e],
+    ['Website',data.w]
   ].filter(x=>x[1]);
   $('details').innerHTML=detailRows.map(([k,v])=>`<div class="detail"><span>${k}</span><span>${v}</span></div>`).join('');
   $('details').hidden=detailRows.length===0;
@@ -70,8 +73,9 @@ if(!data||!data.n){
     b.disabled=!enabled;
     if(enabled)b.onclick=fn;
   };
+  const whatsappNumber=String(data.q||data.p||'').trim();
   wire('callBtn',data.p,()=>location.href=`tel:${data.p}`);
-  wire('waBtn',data.p,()=>location.href=`https://wa.me/${String(data.p).replace(/\D/g,'')}`);
+  wire('waBtn',whatsappNumber,()=>location.href=`https://wa.me/${whatsappNumber.replace(/\D/g,'')}`);
   wire('emailBtn',data.e,()=>location.href=`mailto:${data.e}`);
   wire('webBtn',data.w,()=>location.href=safeUrl(data.w));
 
@@ -85,6 +89,7 @@ if(!data||!data.n){
       data.c?`ORG:${esc(data.c)}`:'',
       data.t?`TITLE:${esc(data.t)}`:'',
       data.p?`TEL;TYPE=CELL,VOICE:${esc(data.p)}`:'',
+      data.q&&data.q!==data.p?`TEL;TYPE=CELL;X-ABLabel=WhatsApp:${esc(data.q)}`:'',
       data.e?`EMAIL;TYPE=INTERNET:${esc(data.e)}`:'',
       data.w?`URL;TYPE=WORK:${esc(safeUrl(data.w))}`:'',
       'END:VCARD'
