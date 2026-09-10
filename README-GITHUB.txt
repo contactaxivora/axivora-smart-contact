@@ -35,3 +35,9 @@ v1.3:
 - If image exists, it replaces the initial avatar.
 - If image is missing or invalid, the first letter of the contact name is shown automatically.
 - No backend or image hosting is required.
+
+
+v1.4:
+- Improved profile photo presentation for higher-quality embedded images.
+- Avatar display adjusted to 88px to avoid unnecessary upscaling.
+- Service-worker cache bumped so browsers fetch the new profile rendering.
