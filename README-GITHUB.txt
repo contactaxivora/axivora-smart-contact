@@ -55,3 +55,10 @@ v2.0:
 - Removed embedded Base64 profile-photo transport.
 - If no published profile URL exists or image loading fails, the first letter of the name is shown.
 - Service-worker cache bumped so deployed clients fetch the new logic.
+
+
+v2.1:
+- Profile avatar enlarged to 132px desktop / 118px mobile.
+- Smart Contact image `i` may now be a short GitHub repository path.
+- Website expands the short path into the full raw.githubusercontent.com URL at runtime.
+- Existing full HTTPS image URLs remain backward compatible.

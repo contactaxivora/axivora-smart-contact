@@ -25,8 +25,13 @@ if(!data||!data.n){
   $('company').textContent=data.c||'';
   $('company').hidden=!String(data.c||'').trim();
   const initial=(data.n.trim()[0]||'A').toUpperCase();
-  const profileImage=String(data.i||'').trim();
-  if(profileImage && /^https:\/\//i.test(profileImage)){
+  const profileRef=String(data.i||'').trim();
+  const profileImage=/^https:\/\//i.test(profileRef)
+    ? profileRef
+    : profileRef
+      ? `https://raw.githubusercontent.com/contactaxivora/axivora-smart-contact-images/main/${profileRef.replace(/^\/+/, '')}`
+      : '';
+  if(profileImage){
     const img=document.createElement('img');
     img.alt=data.n;
     img.referrerPolicy='no-referrer';
