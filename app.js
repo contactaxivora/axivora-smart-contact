@@ -13,6 +13,8 @@ const safeUrl=v=>{
   if(!v)return'';
   return /^https?:\/\//i.test(v)?v:`https://${v}`;
 };
+const socialUrl=(k,v)=>{v=String(v||'').trim();if(!v)return'';if(/^https?:\/\//i.test(v))return v;const b={ig:'https://www.instagram.com/',fb:'https://www.facebook.com/',li:'https://www.linkedin.com/',tt:'https://www.tiktok.com/',th:'https://www.threads.net/'};return (b[k]||'https://')+v.replace(/^\/+/, '')};
+const socialMeta={ig:['Instagram','◎'],fb:['Facebook','f'],li:['LinkedIn','in'],tt:['TikTok','♪'],th:['Threads','@']};
 const esc=v=>String(v||'').replace(/[\\;,]/g,m=>'\\'+m).replace(/\r?\n/g,'\\n');
 const data=decodeData();
 const configureDynamicManifest=(contact)=>{
@@ -78,6 +80,9 @@ if(!data||!data.n){
   wire('waBtn',whatsappNumber,()=>location.href=`https://wa.me/${whatsappNumber.replace(/\D/g,'')}`);
   wire('emailBtn',data.e,()=>location.href=`mailto:${data.e}`);
   wire('webBtn',data.w,()=>location.href=safeUrl(data.w));
+  const socialEntries=Object.entries(data.s&&typeof data.s==='object'?data.s:{}).filter(([k,v])=>socialMeta[k]&&String(v||'').trim());
+  if(socialEntries.length){const wrap=document.createElement('div');wrap.className='social-links';socialEntries.forEach(([k,v])=>{const [label,icon]=socialMeta[k];const a=document.createElement('a');a.className='social-link';a.href=socialUrl(k,v);a.target='_blank';a.rel='noopener noreferrer';a.innerHTML=`<span class="social-icon">${icon}</span><span>${label}</span>`;wrap.appendChild(a)});$('actions').insertAdjacentElement('afterend',wrap)}
+
 
   $('saveBtn').onclick=()=>{
     const parts=(data.n||'').trim().split(/\s+/);
