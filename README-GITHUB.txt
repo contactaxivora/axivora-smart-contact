@@ -48,3 +48,10 @@ v1.5:
 - Supports URL-safe Base64 profile payloads from QR Studio.
 - Falls back to the first letter of the name only if the embedded image is missing or invalid.
 - Service-worker cache bumped to force browsers to fetch the new code.
+
+
+v2.0:
+- Profile photo now loads from the published HTTPS image URL inside Smart Contact data (`i`).
+- Removed embedded Base64 profile-photo transport.
+- If no published profile URL exists or image loading fails, the first letter of the name is shown.
+- Service-worker cache bumped so deployed clients fetch the new logic.

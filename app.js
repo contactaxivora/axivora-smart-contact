@@ -13,17 +13,6 @@ const safeUrl=v=>{
   if(!v)return'';
   return /^https?:\/\//i.test(v)?v:`https://${v}`;
 };
-const profileImageFromQuery=()=>{
-  try{
-    let raw=new URLSearchParams(location.search).get('i')||'';
-    if(!raw)return'';
-    raw=decodeURIComponent(raw).replace(/-/g,'+').replace(/_/g,'/');
-    while(raw.length%4)raw+='=';
-    // Validate Base64 before using it as an image source.
-    atob(raw);
-    return `data:image/webp;base64,${raw}`;
-  }catch{return''}
-};
 const esc=v=>String(v||'').replace(/[\\;,]/g,m=>'\\'+m).replace(/\r?\n/g,'\\n');
 const data=decodeData();
 if(!data||!data.n){
@@ -36,10 +25,11 @@ if(!data||!data.n){
   $('company').textContent=data.c||'';
   $('company').hidden=!String(data.c||'').trim();
   const initial=(data.n.trim()[0]||'A').toUpperCase();
-  const profileImage=profileImageFromQuery();
-  if(profileImage){
+  const profileImage=String(data.i||'').trim();
+  if(profileImage && /^https:\/\//i.test(profileImage)){
     const img=document.createElement('img');
     img.alt=data.n;
+    img.referrerPolicy='no-referrer';
     img.src=profileImage;
     img.onload=()=>{$('avatar').textContent='';$('avatar').appendChild(img);$('avatar').classList.add('has-image');};
     img.onerror=()=>{$('avatar').textContent=initial;$('avatar').classList.remove('has-image');};
