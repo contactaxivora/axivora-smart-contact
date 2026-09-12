@@ -86,6 +86,12 @@ if(!data||!data.n){
   wire('waBtn',whatsappNumber,()=>location.href=`https://wa.me/${whatsappNumber.replace(/\D/g,'')}`);
   wire('emailBtn',data.e,()=>location.href=`mailto:${data.e}`);
   wire('webBtn',data.w,()=>location.href=safeUrl(data.w));
+  const actionButtons=[...document.querySelectorAll('#actions .action')].filter(el=>!el.hidden);
+  actionButtons.forEach(el=>el.classList.remove('action-wide'));
+  if(actionButtons.length%2===1){
+    actionButtons[actionButtons.length-1]?.classList.add('action-wide');
+  }
+
   const socialEntries=Object.entries(data.s&&typeof data.s==='object'?data.s:{}).filter(([k,v])=>socialMeta[k]&&String(v||'').trim());
   if(socialEntries.length){const wrap=document.createElement('div');wrap.className='social-links';socialEntries.forEach(([k,v])=>{const [label,icon]=socialMeta[k];const a=document.createElement('a');a.className='social-link';a.href=socialUrl(k,v);a.target='_blank';a.rel='noopener noreferrer';a.innerHTML=`<span class="social-icon">${icon}</span><span>${label}</span>`;wrap.appendChild(a)});if(socialEntries.length%2===1)wrap.lastElementChild?.classList.add('social-link-wide');$('actions').insertAdjacentElement('afterend',wrap)}
 
